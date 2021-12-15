@@ -22,6 +22,7 @@ import Diatheke
 import GRPC
 import AVFoundation
 import NIO
+import Cubic
 
 enum MessageType: String {
     
@@ -60,7 +61,8 @@ class ViewController: UIViewController {
     
     // MARK: - Private properties
     
-    fileprivate var client: Client!                             // Diatheke Client
+    fileprivate var client: Cobaltspeech_Diatheke_DiathekeClient!                             // Diatheke Client
+    fileprivate var cubicClient: Cobaltspeech_Cubic_CubicClient!
     fileprivate var host: String?                               // Connection host (100.78.103.101)
     fileprivate var port: Int?                                  // Connection port (9071)
     fileprivate var useTLS = false
@@ -215,7 +217,7 @@ class ViewController: UIViewController {
         }
 
         guard let host = host, let port = port else { return }
-        client = Client(host: host, port: port, useTLS: useTLS)
+        client = Cobaltspeech_Diatheke_DiathekeClient(host: host, port: port, useTLS: useTLS) //  Client(host: host, port: port, useTLS: useTLS)
         client.listModels { (modelInfo) in
             self.saveConnectionSettings()
             self.models = modelInfo
