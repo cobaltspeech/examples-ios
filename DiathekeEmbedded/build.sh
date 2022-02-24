@@ -1,1 +1,0 @@
-xcodebuild test -project DiathekeSDKExample.xcodeproj -scheme DiathekeSDKExample -destination 'platform=iOS Simulator,name=iPhone 11'
