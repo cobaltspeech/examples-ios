@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  DiathekeSDKExample
+//  DiathekeEmbeddedDemo
 //
 //  Created by Eduard Miniakhmetov on 20.04.2020.
 //  Copyright (2020) Cobalt Speech and Language Inc.
@@ -76,7 +76,7 @@ class ViewController: UIViewController {
     fileprivate var audioData: Data?                            // TTS audio data/
     fileprivate var asrStream: ASRStream?
     fileprivate var ttsStream: TTSStream?
-    fileprivate var transcibeStream: TranscribeStream?
+    fileprivate var transcribeStream: TranscribeStream?
     
     fileprivate var models: [Cobaltspeech_Diatheke_ModelInfo] = []
    
@@ -432,7 +432,7 @@ class ViewController: UIViewController {
                     }
                 })
             case .transcribe(let transcribeAction):
-                self.transcibeStream = self.client.newTranscribeStream(action: transcribeAction, transcribeResultHandler: { transcribeResult in
+                self.transcribeStream = self.client.newTranscribeStream(action: transcribeAction, transcribeResultHandler: { transcribeResult in
                     guard !transcribeResult.isPartial else {
                         return
                     }
@@ -444,7 +444,7 @@ class ViewController: UIViewController {
                     }
                 }, completion: { error in
                     if let error = error {
-                        print(print("Transcribe error received: \(error)"))
+                        print("Transcribe error received: \(error)")
                     }
                 })
             }
@@ -453,7 +453,7 @@ class ViewController: UIViewController {
    
     /// Plays TTS audio
     private func playAudio(data: Data) {
-        let arFileManager = ARFileManager()
+        let arFileManager = AudioRecordingFileManager()
         if let wavFile = try? arFileManager.createWavFile(using: data) {
             player = try? AVAudioPlayer(contentsOf: wavFile)
             guard let player = player else { return }
@@ -787,7 +787,7 @@ extension ViewController: ModelsViewControllerDelegate {
     }
     
     func modelsViewControllerDidSelectModel(_ model: LocalModel?) {
-  
+    
     }
     
     func modelsViewControllerDidRemoveModel(with id: String, for product: String) {

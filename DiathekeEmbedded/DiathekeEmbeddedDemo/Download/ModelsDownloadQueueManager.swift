@@ -1,6 +1,6 @@
 //
 //  ModelsDownloadQueueManager.swift
-//  DiathekeSDKExample
+//  DiathekeEmbeddedDemo
 //
 //  Created by Eduard Miniakhmetov on 10.12.2021.
 //  Copyright © 2021 Cobalt Speech and Language Inc. All rights reserved.
@@ -367,7 +367,7 @@ extension ModelsDownloadQueueManager: ModelDownloaderDelegate {
         }
     }
     
-    public func modelDonwloader(_ downloader: ModelDownloader, didCancelLoadingWithResumeData resumeData: Data?) {
+    public func modelDownloader(_ downloader: ModelDownloader, didCancelLoadingWithResumeData resumeData: Data?) {
         if let model = self.downloadingModel {
             model.status = .notLoaded
             self.downloadingModel = nil

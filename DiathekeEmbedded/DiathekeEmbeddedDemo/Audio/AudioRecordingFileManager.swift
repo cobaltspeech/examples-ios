@@ -1,6 +1,6 @@
 //
-//  ARFileManager.swift
-//  DiathekeSDKExample
+//  AudioRecordingFileManager.swift
+//  DiathekeEmbeddedDemo
 //
 //  Created by Eduard Miniakhmetov on 27.04.2020.
 //  Copyright (2020) Cobalt Speech and Language Inc.
@@ -19,9 +19,10 @@
 
 import Foundation
 
-class ARFileManager {
+///  An object that saves audio data to a wav file
+class AudioRecordingFileManager {
 
-     static let shared = ARFileManager()
+     static let shared = AudioRecordingFileManager()
      let fileManager = FileManager.default
 
      var documentDirectoryURL: URL? {

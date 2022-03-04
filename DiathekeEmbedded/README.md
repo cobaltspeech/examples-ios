@@ -1,48 +1,12 @@
 # Diatheke Embedded Demo Reference
 
-# Luna Xcode framework
-## Including the framework and its dependencies
-Luna Xcode framework and its dependencies should be downloaded and placed inside the demo project folder:
-```bash
-cd DiathekeEmbedded
-./download_frameworks.sh 
-```
-## Usage
-Add `LunaWrapper` C++ class to your project:
-##### LunaWrapper.h
-```c
-#import <Foundation/Foundation.h>
-@interface LunaWrapper: NSObject
-- (void)startServer:(NSString *)configPath;
-@end
-```
-##### LunaWrapper.mm
-```c
-#import "LunaWrapper.h"
-#import <Foundation/Foundation.h>
-#import "luna_server.hpp"
-#include <string>
-
-@implementation  LunaWrapper
-
-- (void)startServer:(NSString *)configPath {
-	std::string path = std::string([configPath UTF8String]);
-	RunServer(path);
-}
-
-@end
-```
-This will automatically add a Bridging Header too your project.
-
-#### Start Luna server
-``` swift
-LunaWrapper().startServer("path/to/lunasvr.cfg.toml")
-```
-> **Note**: Starting Luna server takes up to 8 second so it is better to wait this amount of time before starting Diatheke server.
+This example illustrates running all the Cobalt engines on an iOS device rather than accessing them in the cloud.
+As such, it requires additional steps to set up frameworks for Luna (TTS), Diatheke (Dialogue/NLU), and Cubic (ASR).
+This example also includes logic for downloading Dialogue and ASR models from a remote URL.  This makes the code example more complex, but shows how the model is independent from the code used to interact with it so the same app could potentially serve up a different logical flow just by changing out the model.
 
 # CobaltMobile Xcode Framework Reference
 
-CobaltMobile Xcode Framework (`Cobaltmobile.xcframework`) is an SDK containing `Diatheke` (NLU) and `Cubic` (ASR) servers objects and methods to run on iOS applications.
+CobaltMobile Xcode Framework (`Cobaltmobile.xcframework`) is an SDK containing `Diatheke` (NLU) and `Cubic` (ASR) server objects and methods to run from iOS applications.
 
 # Requirements
 Supported Platforms:
@@ -61,7 +25,7 @@ Bitcode is not currently supported.
 - `Cubic.xcframework` (provided together with CobaltMobile.xcframework). Cubic Xcode Framework is the ASR Engine required by Cubic part of the
 Cobaltmobile framework. It needs to be included into Xcode project but doesn't need to be imported and used directly in any of the project's source files.
 
-# Including the Framework
+# Including the Cubic and Diatheke Framework
 
 Add `Cobaltmobile.xcframework` and `Cubic.xcframework` to the main target of your Xcode project.
 
@@ -230,4 +194,44 @@ Save `DiathekesvrConfig` object as TOML file:
 let configPath: URL = {save_path_url}
 diathekeServerConfig.save(configPath)
 ```
-Full reference to Diatheke Server Config File structure can be found on our [Documenation Portal](https://docs.cobaltspeech.com/vui/sdk-diatheke/).
+More Diatheke reference can be found on our [Documenation Portal](https://docs.cobaltspeech.com/vui/sdk-diatheke/).
+
+# Luna Xcode framework
+## Including the framework and its dependencies
+Luna Xcode framework and its dependencies should be downloaded and placed inside the demo project folder:
+```bash
+cd DiathekeEmbedded
+./download_frameworks.sh 
+```
+## Usage
+Add `LunaWrapper` C++ class to your project:
+##### LunaWrapper.h
+```c
+#import <Foundation/Foundation.h>
+@interface LunaWrapper: NSObject
+- (void)startServer:(NSString *)configPath;
+@end
+```
+##### LunaWrapper.mm
+```c
+#import "LunaWrapper.h"
+#import <Foundation/Foundation.h>
+#import "luna_server.hpp"
+#include <string>
+
+@implementation  LunaWrapper
+
+- (void)startServer:(NSString *)configPath {
+	std::string path = std::string([configPath UTF8String]);
+	RunServer(path);
+}
+
+@end
+```
+This will automatically add a Bridging Header to your project.
+
+#### Start Luna server
+``` swift
+LunaWrapper().startServer("path/to/lunasvr.cfg.toml")
+```
+> **Note**: Starting Luna server takes up to 8 seconds so it is better to wait this amount of time before starting Diatheke server.

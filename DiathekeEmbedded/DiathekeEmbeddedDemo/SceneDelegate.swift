@@ -1,6 +1,6 @@
 //
 //  SceneDelegate.swift
-//  DiathekeSDKExample
+//  DiathekeEmbeddedDemo
 //
 //  Created by Eduard Miniakhmetov on 20.04.2020.
 //  Copyright (2020) Cobalt Speech and Language Inc.

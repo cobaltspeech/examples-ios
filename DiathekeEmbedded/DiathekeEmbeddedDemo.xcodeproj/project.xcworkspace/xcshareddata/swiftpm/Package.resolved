@@ -14,9 +14,9 @@
         "package": "CobaltKit",
         "repositoryURL": "git@github.com:cobaltspeech/ios-app-kit.git",
         "state": {
-          "branch": "kapitoshka438/luna_config",
-          "revision": "29f9383b8752b7108b52678e108414c3e6a5ce7f",
-          "version": null
+          "branch": null,
+          "revision": "c5e21af603fd9f206b8a7ed7bd462a0bf6df8c8a",
+          "version": "0.9.3"
         }
       },
       {
@@ -35,15 +35,6 @@
           "branch": null,
           "revision": "cbaaf228fd219bbb531437bf260670b5ade9c6a1",
           "version": "2.1.2"
-        }
-      },
-      {
-        "package": "Luna",
-        "repositoryURL": "git@github.com:cobaltspeech/sdk-luna.git",
-        "state": {
-          "branch": "edward/update_grpc_swift",
-          "revision": "e40b1100e68a7d39596ed4a5cfd49ab573a0849b",
-          "version": null
         }
       },
       {

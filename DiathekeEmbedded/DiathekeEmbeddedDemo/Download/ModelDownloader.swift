@@ -1,6 +1,6 @@
 //
 //  ModelDownloader.swift
-//  DiathekeSDKExample
+//  DiathekeEmbeddedDemo
 //
 //  Created by Eduard Miniakhmetov on 10.12.2021.
 //  Copyright © 2021 Cobalt Speech and Language Inc. All rights reserved.
@@ -15,7 +15,7 @@ public protocol ModelDownloaderDelegate: AnyObject {
     func modelDownloader(_ downloader: ModelDownloader, didFinishDownloadingToPath path: String)
     func modelDownloader(_ downloader: ModelDownloader, didUnzipToPath path: String)
     func modelDownloader(_ downloader: ModelDownloader, didCompleteWithError error: Error?, resumeData: Data?)
-    func modelDonwloader(_ downloader: ModelDownloader, didCancelLoadingWithResumeData resumeData: Data?)
+    func modelDownloader(_ downloader: ModelDownloader, didCancelLoadingWithResumeData resumeData: Data?)
     
 }
 
@@ -75,8 +75,6 @@ public class ModelDownloader: NSObject, URLSessionDownloadDelegate {
                     totalBytesWritten: Int64,
                     totalBytesExpectedToWrite: Int64) {
         let pr =  Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
-        print("CF: PROGRESS \(pr)")
-        
         self.delegate?.modelDownloader(self, didChangeStatus: .downloading, withProgress: pr)
     }
     
@@ -90,8 +88,6 @@ public class ModelDownloader: NSObject, URLSessionDownloadDelegate {
                 self.delegate?.modelDownloader(self, didCompleteWithError: error, resumeData: nil)
             }
         }
-        
-        print("CF: PROGRESS \(location.path)")
 
         let zipFilename = UUID().uuidString + ".zip"
         let movedZipPath = modelsRootPath.appendingPathComponent(zipFilename)
@@ -103,12 +99,6 @@ public class ModelDownloader: NSObject, URLSessionDownloadDelegate {
         }
         
         unzipWithProgress(zipUrl: movedZipPath)
-    }
-    
-    public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64) {
-        let calculatedProgress = Float(fileOffset) / Float(expectedTotalBytes)
-        print("CF: PROGRESS \(calculatedProgress)")
-        
     }
     
     public func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
@@ -141,7 +131,7 @@ public class ModelDownloader: NSObject, URLSessionDownloadDelegate {
     
     func cancelDownload() {
         self.task?.cancel(byProducingResumeData: { data in
-            self.delegate?.modelDonwloader(self, didCancelLoadingWithResumeData: data)
+            self.delegate?.modelDownloader(self, didCancelLoadingWithResumeData: data)
         })
     }
     

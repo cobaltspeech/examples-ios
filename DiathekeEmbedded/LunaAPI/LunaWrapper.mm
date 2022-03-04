@@ -1,6 +1,6 @@
 //
 //  LunaWrapper.m
-//  SwiftCPP
+//  DiathekeEmbeddedDemo
 //
 
 #import "LunaWrapper.h"

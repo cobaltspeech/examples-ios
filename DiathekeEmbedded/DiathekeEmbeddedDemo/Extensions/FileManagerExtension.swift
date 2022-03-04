@@ -1,6 +1,6 @@
 //
-//  FileManager+Extensions.swift
-//  DiathekeSDKExample
+//  FileManagerExtension.swift
+//  DiathekeEmbeddedDemo
 //
 //  Created by Eduard Miniakhmetov on 10.12.2021.
 //  Copyright © 2021 Cobalt Speech and Language Inc. All rights reserved.
@@ -105,10 +105,6 @@ extension FileManager {
         return diathekeModelsDirectoryURL.appendingPathComponent(path)
     }
     
-  /*  func getModelDirectory(path: String) -> URL {
-        return getModelsDirectory().appendingPathComponent(path)
-    }
-    */
     func directoryExists(path: String) -> Bool {
         var isDirectory = ObjCBool(true)
         let directoryExists = fileExists(atPath: path, isDirectory: &isDirectory)
